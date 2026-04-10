@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace CafeteriaInventario
 {
-    public partial class Form1 : Form
+    public partial class frmInventario : Form
     {
-        public Form1()
+        public frmInventario()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
