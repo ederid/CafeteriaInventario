@@ -22,4 +22,4 @@ Este sistema permite el registro agil de productos que se ofrecen en una Cafeter
 ![Captura del Formulario Principal](img/screenshot1.png)
 
 ## Integrantes
-* [Nombre del Alumno 1] - [Número de Cuenta]
+* Ederid Ramos Braulio - 333000028
