@@ -23,11 +23,6 @@ namespace CafeteriaInventario
 
         }
 
-        private void txtPrecio_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) &&
