@@ -39,7 +39,8 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.lstVerMenu = new System.Windows.Forms.ListBox();
+            this.dgvProductos = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
             // txtProducto
@@ -130,12 +131,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(503, 18);
+            this.button1.Location = new System.Drawing.Point(607, 244);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(217, 35);
+            this.button1.Size = new System.Drawing.Size(422, 22);
             this.button1.TabIndex = 9;
-            this.button1.Text = "Ver Menú";
+            this.button1.Text = "Limpiar Base de Datos";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -143,24 +145,24 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(187, 35);
             this.button2.TabIndex = 10;
-            this.button2.Text = "Limpiar";
+            this.button2.Text = "Limpiar Formulario";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // lstVerMenu
+            // dgvProductos
             // 
-            this.lstVerMenu.FormattingEnabled = true;
-            this.lstVerMenu.Location = new System.Drawing.Point(503, 81);
-            this.lstVerMenu.Name = "lstVerMenu";
-            this.lstVerMenu.Size = new System.Drawing.Size(217, 186);
-            this.lstVerMenu.TabIndex = 11;
+            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductos.Location = new System.Drawing.Point(504, 28);
+            this.dgvProductos.Name = "dgvProductos";
+            this.dgvProductos.Size = new System.Drawing.Size(628, 197);
+            this.dgvProductos.TabIndex = 12;
             // 
             // frmInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 292);
-            this.Controls.Add(this.lstVerMenu);
+            this.ClientSize = new System.Drawing.Size(1170, 292);
+            this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAgregar);
@@ -176,6 +178,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "COFFEE DIN | INVENTARIO";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,7 +197,7 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox lstVerMenu;
+        private System.Windows.Forms.DataGridView dgvProductos;
     }
 }
 

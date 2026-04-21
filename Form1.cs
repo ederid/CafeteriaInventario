@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
+using System.Drawing.Text;
 
 namespace CafeteriaInventario
 {
@@ -16,11 +18,33 @@ namespace CafeteriaInventario
         public frmInventario()
         {
             InitializeComponent();
+            CrearBaseDeDatos();
+        }
+
+        private void CrearBaseDeDatos()
+        {
+            string dbPath = "Data Source=database.db";
+
+            using (SQLiteConnection conn = new SQLiteConnection(dbPath))
+            {
+                conn.Open();
+
+                string query = @"CREATE TABLE IF NOT EXISTS Productos (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Nombre_Producto TEXT,
+                        Precio TEXT,
+                        Descripcion TEXT,
+                        Categoria TEXT
+                    );";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            CargarProductos();
         }
 
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
@@ -54,6 +78,8 @@ namespace CafeteriaInventario
                 txtPrecio.Focus();
             }
         }
+
+        private string dbPath = "Data Source=database.db";
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -99,9 +125,32 @@ namespace CafeteriaInventario
                 cmbCategoria.Focus();
             }
 
-            MessageBox.Show("Producto agregado.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(dbPath))
+                {
+                    conn.Open();
 
-            LimpiarFormulario();
+                    string query = @"INSERT INTO Productos (Nombre_Producto, Precio, Descripcion, Categoria) VALUES (@nombre, @precio, @descripcion, @categoria)";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@nombre", txtProducto.Text.Trim());
+                        cmd.Parameters.AddWithValue("@precio", txtPrecio);
+                        cmd.Parameters.AddWithValue("@descripcion", txtDescripcion.Text.Trim());
+                        cmd.Parameters.AddWithValue("@categoria", cmbCategoria.SelectedItem.ToString());
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Producto agregado.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarFormulario();
+                CargarProductos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al insertar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LimpiarFormulario()
@@ -121,6 +170,44 @@ namespace CafeteriaInventario
         private void button2_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+        }
+
+        private void CargarProductos()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(dbPath))
+                {
+                    conn.Open();
+
+                    string query = "SELECT * FROM Productos";
+
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, conn))
+                    {
+                        DataTable tabla = new DataTable();
+                        adapter.Fill(tabla);
+
+                        dgvProductos.DataSource = tabla;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al consultar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReconstruirTabla();
+        }
+
+        private void ReconstruirTabla()
+        {
+            try
+            {
+
+            }
         }
     }
 }
