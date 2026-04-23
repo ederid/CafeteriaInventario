@@ -19,7 +19,7 @@ Este sistema permite el registro agil de productos que se ofrecen en una Cafeter
 4. Ejecuta el script de la base de datos incluido en la carpeta `/db`.
 
 ## Demostración
-![Captura del Formulario Principal](img/screenshot1.png)
+![Captura del Formulario Principal](img/screenshot2.png)
 
 ## Integrantes
 * Ederid Ramos Braulio - 333000028
