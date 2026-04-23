@@ -5,12 +5,15 @@
 **Fecha:** 25 de abril del 2026
 
 ## Descripción
-Este sistema permite el registro agil de productos que se ofrecen en una Cafetería. A través de éste se puede registrar el nombre del producto, el precio, y una pequeña descripción del mismo.
+Aplicación de escritorio desarrollada en C# (Visual Studio Community 2026) con Windows Forms que permite gestionar el inventario de una cafetería mediante una base de datos SQLite (local). Incluye funcionalidades para crear la base de datos (si no existe), agregar productos con validaciones (nombre, descripción, categoría y precio), formatear valores monetarios y visualizar registros en una tabla a través de un DataGrid. También permite limpiar formularios, reconstruir la tabla y manejar errores mediante mensajes al usuario. 
+
+## Guía de Instalación
+
 
 ## Tecnologías Utilizadas
-* C# (.NET Core / Framework)
-* Base de Datos: [MySQL / SQL Server / etc.]
-* Visual Studio 2022
+* C#
+* Base de Datos: SQLite
+* Visual Studio 2026
 
 ## Instalación y Configuración
 1. Clona el repositorio: `git clone [URL del repo]`
