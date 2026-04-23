@@ -136,7 +136,7 @@ namespace CafeteriaInventario
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@nombre", txtProducto.Text.Trim());
-                        cmd.Parameters.AddWithValue("@precio", txtPrecio);
+                        cmd.Parameters.AddWithValue("@precio", txtPrecio.Text.Trim());
                         cmd.Parameters.AddWithValue("@descripcion", txtDescripcion.Text.Trim());
                         cmd.Parameters.AddWithValue("@categoria", cmbCategoria.SelectedItem.ToString());
 
@@ -180,7 +180,7 @@ namespace CafeteriaInventario
                 {
                     conn.Open();
 
-                    string query = "SELECT * FROM Productos";
+                    string query = "SELECT Categoria, Nombre_Producto, Precio, Descripcion FROM Productos ORDER BY Categoria, Nombre_Producto";
 
                     using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, conn))
                     {
@@ -206,8 +206,44 @@ namespace CafeteriaInventario
         {
             try
             {
+                using (SQLiteConnection conn = new SQLiteConnection(dbPath))
+                {
+                    conn.Open();
 
+                    using (SQLiteCommand cmd = new SQLiteCommand("", conn))
+                    {
+                        // 1. Eliminar tabla existente con todos sus registros
+                        cmd.CommandText = "DROP TABLE IF EXISTS Productos";
+                        cmd.ExecuteNonQuery();
+
+                        // 2. Recrear la tabla con Precio como TEXT
+                        cmd.CommandText = @"CREATE TABLE Productos (
+                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Nombre_Producto TEXT,
+                            Precio TEXT,
+                            Descripcion TEXT,
+                            Categoria TEXT
+                        )";
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Tabla recreada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                CargarProductos(); // Refrescar el DataGridView
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("¿Estás seguro que deseas salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+                Application.Exit();
         }
     }
 }
